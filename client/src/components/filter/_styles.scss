@@ -1,0 +1,154 @@
+.filter-component-container {
+  width: 100%;
+  //padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  .filter-component-inner-container {
+    width: 100%;
+    height: 150px;
+    background-color: $card-background-color;
+    box-shadow: $app-box-shadow;
+    border: 0px solid $border-color;
+    display: flex;
+    //flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+
+    .filter-component-slider-container {
+      min-width: 200px;
+      margin-left: 15px;
+
+      .slider-header-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        color: $text-color;
+        margin-bottom: 15px;
+        // margin-bottom: 10px;
+      }
+
+      .slider-main-slider-container {
+        width: 100%;
+
+        .MuiSlider-colorPrimary {
+          color: $green-background-color;
+
+          .MuiSlider-track {
+            color: $green-background-color;
+          }
+
+          .MuiSlider-markLabel {
+            color: $text-color;
+          }
+
+          .MuiSlider-mark {
+            width: 8px;
+            height: 8px;
+          }
+        }
+      }
+    }
+
+    // .filter-component-other-filters {
+    //   width: 70%;
+    //   height: 100%;
+    //   //height: 250px;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: space-between;
+
+    .filter-by-state-container {
+      width: auto;
+      height: auto;
+
+      .filter-by-state-header-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        color: $text-color;
+        margin-bottom: 15px;
+      }
+
+      .filter-by-state-contents-container {
+        .MuiFormGroup-root {
+          .MuiRadio-root,
+          .MuiTypography-root {
+            color: $text-color;
+            font-size: 0.85rem;
+          }
+
+          .Mui-checked {
+            color: $green-background-color;
+          }
+
+          .MuiRadio-root {
+            svg {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    .filter-by-topic-container {
+      .filter-by-topic-header-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        color: $text-color;
+        margin-bottom: 20px;
+      }
+
+      .filter-by-topic-contents-container {
+        .MuiFormControl-root {
+          .MuiInputLabel-root {
+            color: $text-color;
+          }
+
+          .MuiOutlinedInput-root {
+            color: $text-color;
+            font-size: 0.9rem;
+          }
+
+          .MuiSvgIcon-root {
+            fill: $text-color;
+          }
+
+          fieldset {
+            border-color: $text-color;
+          }
+        }
+      }
+    }
+  }
+  //}
+}
+
+.MuiPaper-root,
+.MuiPaper-elevation {
+  background-color: $card-background-color !important;
+
+  ul {
+    color: $text-color;
+
+    li {
+      font-size: 0.85rem;
+    }
+
+    li:hover,
+    .Mui-selected {
+      background-color: $app-background-color;
+    }
+  }
+}

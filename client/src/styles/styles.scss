@@ -1,0 +1,20 @@
+@import "./universal";
+@import "../components/index";
+
+body.dark::-webkit-scrollbar {
+  width: 11px;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: $card-background-color;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: $app-background-color;
+  border-radius: 6px;
+  border: 2px solid $card-background-color;
+}

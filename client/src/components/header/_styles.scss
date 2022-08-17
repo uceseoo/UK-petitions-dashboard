@@ -1,0 +1,66 @@
+.header-component-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+
+  .header-component-inner-container {
+    width: 100%;
+
+    .petitions-datat-summary-container {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .each-data-summary-container {
+        background-color: $card-background-color;
+        box-shadow: $app-box-shadow;
+        width: calc(100% / 3 - 90px);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .data-information {
+          height: 100%;
+          width: calc(100% - 70px);
+          overflow-x: hidden;
+          overflow-y: hidden;
+          text-overflow: ellipsis;
+          color: $text-color;
+          padding: 0 15px;
+          display: flex;
+          flex-direction: column;
+          //align-items: center;
+          justify-content: center;
+
+          span {
+            font-weight: 400;
+            font-size: 1.3em;
+          }
+
+          p {
+            font-weight: 400;
+            font-size: 0.85em;
+          }
+        }
+
+        .data-icon {
+          width: 70px;
+          height: 100%;
+          background-color: $green-background-color;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            fill: #1b2444;
+          }
+        }
+      }
+    }
+  }
+}
