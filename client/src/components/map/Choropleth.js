@@ -4,6 +4,8 @@ import L from "leaflet";
 import "leaflet-choropleth";
 import axios from "axios";
 
+import {petitionApi} from "../../api";
+
 const Choropleth = ({petitionTopic, setLoading}) => {
   const [data, setData] = useState(null);
   const map = useMap();
@@ -11,7 +13,7 @@ const Choropleth = ({petitionTopic, setLoading}) => {
   const getGeoJsonData = useCallback(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/petition/get/map/geojson/${petitionTopic}`)
+      .get(`${petitionApi}/get/map/geojson/${petitionTopic}`)
       .then(res => {
         const data = res.data;
         setData(data);

@@ -46,3 +46,28 @@
     }
   }
 }
+
+@media (max-width: 900px) {
+  .navbar-component-container {
+    .navbar-component-inner-container {
+      .navbar-header-text-container {
+        font-size: 15px;
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-component-container {
+    .navbar-component-inner-container {
+      // .navbar-logo-container {
+      // }
+      .navbar-header-text-container {
+        font-size: 15px;
+        padding: 0 10px;
+        display: none;
+      }
+    }
+  }
+}

@@ -1,18 +1,108 @@
+import {useEffect, useState, useCallback} from "react";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import LockIcon from "@mui/icons-material/Lock";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
+
+import {petitionApi} from "../../api";
 
 const HeaderComponent = () => {
-  //N:B FETCH UNIQUE DATA OF PETITIONS FROM SERVER USING USEEFFECT....
+  const [openPetitions, setOpenPetitions] = useState({
+    petitions: [],
+    fetching: false,
+  });
+  const [closedPetitions, setClosedPetitions] = useState({
+    petitions: [],
+    fetching: false,
+  });
+  const [rejectedPetitions, setRejectedPetitons] = useState({
+    petitions: [],
+    fetching: false,
+  });
+
+  const fetchOpenedPetitions = useCallback(() => {
+    setOpenPetitions({
+      petitions: [],
+      fetching: true,
+    });
+    axios
+      .post(`${petitionApi}/fetch/petitions`, {query: "open"})
+      .then(res => {
+        setOpenPetitions({
+          petitions: res.data,
+          fetching: false,
+        });
+      })
+      .catch(error => {
+        setOpenPetitions({
+          petitions: [],
+          fetching: false,
+        });
+      });
+  }, []);
+
+  const fetchClosedPetitions = useCallback(() => {
+    setClosedPetitions({
+      petitions: [],
+      fetching: true,
+    });
+    axios
+      .post(`${petitionApi}/fetch/petitions`, {query: "closed"})
+      .then(res => {
+        setClosedPetitions({
+          petitions: res.data,
+          fetching: false,
+        });
+      })
+      .catch(error => {
+        setClosedPetitions({
+          petitions: [],
+          fetching: false,
+        });
+      });
+  }, []);
+
+  const fetchRejectedPetitions = useCallback(() => {
+    setRejectedPetitons({
+      petitions: [],
+      fetching: true,
+    });
+    axios
+      .post(`${petitionApi}/fetch/petitions`, {query: "rejected"})
+      .then(res => {
+        setRejectedPetitons({
+          petitions: res.data,
+          fetching: false,
+        });
+      })
+      .catch(error => {
+        setRejectedPetitons({
+          petitions: [],
+          fetching: false,
+        });
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchOpenedPetitions();
+    fetchClosedPetitions();
+    fetchRejectedPetitions();
+  }, [fetchOpenedPetitions, fetchClosedPetitions, fetchRejectedPetitions]);
 
   return (
     <div className="header-component-container">
       <div className="header-component-inner-container">
-        <div className="petitions-datat-summary-container">
+        <div className="petitions-data-summary-container">
           <div className="each-data-summary-container">
+            {openPetitions.fetching && (
+              <div className="data-summary-loading-container">
+                <CircularProgress />
+              </div>
+            )}
             <div className="data-information">
-              <span>1,330</span>
-              <p>Opened Petitions</p>
+              <span>{openPetitions.petitions.length}</span>
+              <p>Open Petitions</p>
             </div>
             <div className="data-icon">
               <LockOpenIcon />
@@ -20,8 +110,13 @@ const HeaderComponent = () => {
           </div>
 
           <div className="each-data-summary-container">
+            {closedPetitions.fetching && (
+              <div className="data-summary-loading-container">
+                <CircularProgress />
+              </div>
+            )}
             <div className="data-information">
-              <span>7,796</span>
+              <span>{closedPetitions.petitions.length}</span>
               <p>Closed Petitions</p>
             </div>
             <div className="data-icon">
@@ -30,8 +125,13 @@ const HeaderComponent = () => {
           </div>
 
           <div className="each-data-summary-container">
+            {rejectedPetitions.fetching && (
+              <div className="data-summary-loading-container">
+                <CircularProgress />
+              </div>
+            )}
             <div className="data-information">
-              <span>31,724</span>
+              <span>{rejectedPetitions.petitions.length}</span>
               <p>Rejected Petitions</p>
             </div>
             <div className="data-icon">

@@ -9,7 +9,7 @@ const NavbarComponent = () => {
         </div>
 
         <div className="navbar-header-text-container">
-          <div></div>
+          <div>DASHBOARD FOR UK PETITIONS DATA</div>
         </div>
       </div>
     </nav>

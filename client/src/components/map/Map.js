@@ -24,7 +24,7 @@ const MapComponent = ({petitionTopic}) => {
           <Legend />
           <MapContainer
             center={position}
-            zoom={6}
+            zoom={5}
             style={{height: "100%", width: "100%"}}
           >
             <TileLayer

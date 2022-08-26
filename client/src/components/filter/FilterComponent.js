@@ -29,10 +29,11 @@ const topics = [
   "Office of the Secretary of State for Scotland",
   "Northern Ireland Office",
   "Attorney General's Office",
+  "Unknown Topic",
 ];
 
 const filteredTopics = topics.map(topic => {
-  return topic.replace("Department for ", "");
+  return topic.replace("Department for ", "").replace("Department of", "");
 });
 
 //N:B : MAKE MARKS DYNAMIC BASED ON NUMBER OF YEARS PRESENT IN PETITION DATA
@@ -60,8 +61,10 @@ const FilterComponent = ({
   setPetitionTopic,
   rangeValue,
   setRangeValue,
+  petitionState,
+  setPetitionState,
 }) => {
-  const [petitionState, setPetitionState] = useState("all");
+  //const [petitionState, setPetitionState] = useState("all");
 
   const handleRangeChange = (event, newValue) => {
     setRangeValue(newValue);

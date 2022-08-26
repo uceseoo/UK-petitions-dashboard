@@ -4,7 +4,7 @@ import {Bar} from "react-chartjs-2";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,6 +14,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
+import {petitionApi} from "../../api";
 
 ChartJS.register(
   CategoryScale,
@@ -43,20 +45,36 @@ const BarGraphComponent = ({range, topic}) => {
   const [labels, setLabels] = useState([]);
   const [graphData, setGraphData] = useState([]);
   const [fetching, setFetching] = useState(false);
-  const [query, setQuery] = useState("all");
-  const [queryValue, setQueryValue] = useState("all");
+  const [query, setQuery] = useState(topic);
+  const [queryValue, setQueryValue] = useState("topic");
 
   useEffect(() => {
     setFetching(true);
     //CONVERTS RANGE VALUE FROM FILTER COMPONENT WHICH IS AN ARRAY OF NUMBER TO ARRAY OF STRING
-    const rangeString = range.map(num => {
+
+    let graphRange = range;
+
+    let i = graphRange[graphRange.length - 1];
+
+    //console.log(rangeString);
+
+    while (i-- > graphRange[0]) {
+      if (!graphRange.includes(i)) {
+        const index = graphRange.indexOf(i + 1);
+        graphRange.splice(index, 0, i);
+      }
+    }
+
+    console.log(graphRange);
+
+    const rangeString = graphRange.map(num => {
       return String(num);
     });
 
     axios
-      .post("http://localhost:5000/petition/fetch/bar-graph/data", {
+      .post(`${petitionApi}/fetch/bar-graph/data`, {
         range: rangeString,
-        query: query,
+        query: topic,
       })
       .then(res => {
         const data = res.data;
@@ -69,7 +87,7 @@ const BarGraphComponent = ({range, topic}) => {
         console.log(error);
         setFetching(false);
       });
-  }, [range, query]);
+  }, [range, topic]);
 
   const data = {
     labels: labels,
@@ -117,6 +135,11 @@ const BarGraphComponent = ({range, topic}) => {
         </RadioGroup>
       </div>
       <div className="bar-graph-component-graph-container">
+        {fetching && (
+          <div className="bar-graph-loading-container">
+            <CircularProgress />
+          </div>
+        )}
         <Bar options={options} data={data} />
       </div>
     </div>

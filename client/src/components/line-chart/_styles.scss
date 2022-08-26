@@ -7,4 +7,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  .line-chart-loading-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($app-background-color, 0.7);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+
+    .MuiCircularProgress-root {
+      color: #ffffff;
+    }
+  }
+
+  canvas {
+    height: 95% !important;
+  }
+}
+
+@media (max-width: 1050px) {
+  .line-chart-component-container {
+    width: 49.5%;
+    height: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .line-chart-component-container {
+    width: 100%;
+    height: 49.5%;
+  }
 }

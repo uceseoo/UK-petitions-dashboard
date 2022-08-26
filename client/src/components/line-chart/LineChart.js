@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import {
   Chart as ChartJS,
@@ -9,8 +10,9 @@ import {
   Title,
   Legend,
 } from "chart.js";
-
 import {Line} from "react-chartjs-2";
+
+import {petitionApi} from "../../api";
 
 ChartJS.register(
   LineController,
@@ -24,6 +26,7 @@ ChartJS.register(
 const LineChartComponent = () => {
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState([]);
+  const [loadingData, setLoadingData] = useState(false);
 
   const colours = [
     "#a2d2ff",
@@ -56,15 +59,20 @@ const LineChartComponent = () => {
   }
 
   useEffect(() => {
+    setLoadingData(true);
     axios
-      .get("http://localhost:5000/petition/fetch/line-chart/data")
+      .get(`${petitionApi}/fetch/line-chart/data`)
       .then(res => {
         const data = res.data;
         setLabels(data.labels);
         setData(data.chartData);
+        //console.log(data.chartData);
+        setLoadingData(false);
       })
       .catch(error => {
         console.log(error);
+        setLoadingData(false);
+        alert("Error fetching line-chart data");
       });
   }, []);
 
@@ -78,7 +86,9 @@ const LineChartComponent = () => {
     const randomColor = getRandomColor();
 
     const data = {
-      label: Object.keys(obj)[0].replace("Department for ", ""),
+      label: Object.keys(obj)[0]
+        .replace("Department for ", "")
+        .replace("Department of ", ""),
       data: lineData[0],
       backgroundColor: randomColor,
       borderColor: randomColor,
@@ -93,20 +103,42 @@ const LineChartComponent = () => {
     datasets: chartData,
   };
 
+  // const datas = {
+  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  //   datasets: [
+  //     {
+  //       label: "First dataset",
+  //       data: [33, 53, 85, 41, 44, 65],
+  //       fill: true,
+  //       backgroundColor: "rgba(75,192,192,0.2)",
+  //       borderColor: "rgba(75,192,192,1)",
+  //     },
+  //     {
+  //       label: "Second dataset",
+  //       data: [33, 25, 35, 51, 54, 76],
+  //       fill: false,
+  //       borderColor: "#742774",
+  //     },
+  //   ],
+  // };
+
+  //console.log(lineChartData);
+
   return (
     <div className="line-chart-component-container">
+      {loadingData && (
+        <div className="line-chart-loading-container">
+          <CircularProgress />
+        </div>
+      )}
       <Line
         data={lineChartData}
         options={{
           legend: {
-            display: true,
-            position: "right",
-            align: "center",
-            fontFamily: "Allianz-Neo",
-            textDirection: "ltr",
+            display: false,
+            position: "left",
             labels: {
-              usePointStyle: true,
-              fontColor: "#006192",
+              fontColor: "#ffffff",
             },
           },
         }}

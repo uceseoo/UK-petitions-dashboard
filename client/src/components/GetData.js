@@ -5,15 +5,14 @@ const GetDataComponent = () => {
     //console.log("fetching data");
 
     axios
-      .post("http://localhost:5000/petition/fetch/bar-graph/data", {
-        range: [],
-        query: "Home Office",
-      })
+      .get("http://localhost:5000/petition/add")
       .then(res => {
-        const data = res.data;
-        console.log(data);
+        const result = res.data;
+        //console.log("data fetched successfully");
+        console.log(result);
       })
       .catch(error => {
+        console.log("error whilst fetching data");
         console.log(error);
       });
   };

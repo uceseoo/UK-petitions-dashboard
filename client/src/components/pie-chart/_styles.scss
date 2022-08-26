@@ -34,6 +34,42 @@
     .each-pie-chart-doughnut-container {
       width: 100%;
       height: 80%;
+      position: relative;
+
+      .pie-chart-loading-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($app-background-color, 0.7);
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 9999;
+
+        .MuiCircularProgress-root {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .pie-chart-component-container {
+    flex-direction: column;
+    height: 800px;
+    padding: 10px;
+
+    .each-pie-chart-container {
+      width: 100%;
+      height: 45%;
     }
   }
 }
