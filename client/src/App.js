@@ -11,11 +11,13 @@ import {
   HeaderComponent,
 } from "./components";
 
-import GetDataComponent from "./components/GetData";
+//import GetDataComponent from "./components/GetData";
 
 function App() {
   const [rangeValue, setRangeValue] = useState([2020, 2022]);
   const [petitionTopic, setPetitionTopic] = useState("Home Office");
+  const [petitionState, setPetitionState] = useState("all");
+
   return (
     <div className="application-container">
       <div className="application-inner-container">
@@ -26,6 +28,8 @@ function App() {
           setPetitionTopic={setPetitionTopic}
           rangeValue={rangeValue}
           setRangeValue={setRangeValue}
+          petitionState={petitionState}
+          setPetitionState={setPetitionState}
         />
 
         <HeaderComponent />
@@ -39,7 +43,7 @@ function App() {
           </div>
         </div>
 
-        <PieChartComponent topic={petitionTopic} />
+        <PieChartComponent topic={petitionTopic} state={petitionState} />
 
         {/* <GetDataComponent /> */}
       </div>
