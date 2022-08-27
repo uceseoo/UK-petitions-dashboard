@@ -1,90 +1,73 @@
 import {readFile} from "fs/promises";
-
-const petitions = JSON.parse(
-  await readFile(new URL("../petitions.json", import.meta.url))
-);
+import Petition from "../models/petition.js";
 
 const ukConstituenciesGeoJson = JSON.parse(
   await readFile(new URL("../constituencies_geojson.json", import.meta.url))
 );
 
-const filteredPetitions = petitions.filter(
-  petition => petition.self !== undefined
-);
-
-const updatedPetitionsTopic = filteredPetitions.map(petition => {
-  return {
-    ...petition,
-    topic: petition.departments[0]?.name.replace("Department for ", ""),
-  };
-});
-
 //FUNCTION TO RETURN DATA BASED ON TOPIC/DEPARTMENT SELECTED
 export const fetchMapData = (req, res) => {
   const petitionTopic = req.params.topic;
 
-  //console.log(petitionTopic);
-
   if (!petitionTopic)
     return res.status(404).json({message: "Please add a Topic"});
 
-  //const petitionTopic = "Home Office";
+  Petition.find({topic: petitionTopic})
+    .lean()
+    .then(selectedPetitions => {
+      const signaturesByConstituencies = selectedPetitions.map(
+        a => a.signatures_by_constituency
+      );
 
-  const selectedPetitions = updatedPetitionsTopic.filter(
-    petition => petition?.topic?.toLowerCase() === petitionTopic.toLowerCase()
-  );
+      const groupedSignaturesByConstituencies =
+        signaturesByConstituencies.flat(1);
 
-  const signaturesByConstituencies = selectedPetitions.map(
-    a => a.signatures_by_constituency
-  );
+      const addedUpConstituenciesObject =
+        groupedSignaturesByConstituencies.reduce(function (c, x) {
+          if (!c[x?.name])
+            c[x?.name] = {
+              name: x?.name,
+              mp: x?.mp,
+              ons_code: x?.ons_code,
+              total_importance: 0,
+              total_signature_count: 0,
+            };
+          c[x?.name].total_importance += Number(x?.importance);
+          c[x?.name].total_signature_count += Number(x?.signature_count);
+          return c;
+        }, {});
 
-  const groupedSignaturesByConstituencies = signaturesByConstituencies.flat(1);
+      const addedUpConstituenciesArray = [];
+      for (let name in addedUpConstituenciesObject) {
+        addedUpConstituenciesArray.push(addedUpConstituenciesObject[name]);
+      }
 
-  const addedUpConstituenciesObject = groupedSignaturesByConstituencies.reduce(
-    function (c, x) {
-      if (!c[x?.name])
-        c[x?.name] = {
-          name: x?.name,
-          mp: x?.mp,
-          ons_code: x?.ons_code,
-          total_importance: 0,
-          total_signature_count: 0,
-        };
-      c[x?.name].total_importance += Number(x?.importance);
-      c[x?.name].total_signature_count += Number(x?.signature_count);
-      return c;
-    },
-    {}
-  );
+      const geoJsonFeatures = ukConstituenciesGeoJson.features;
 
-  const addedUpConstituenciesArray = [];
-  for (let name in addedUpConstituenciesObject) {
-    addedUpConstituenciesArray.push(addedUpConstituenciesObject[name]);
-  }
+      const mergeFeaturesToConstituencies = (a1, a2) =>
+        a1.map(item1 => ({
+          ...item1,
+          properties: a2.find(item2 =>
+            item1?.properties?.PCON13CD === item2.ons_code
+              ? {...item1.properties, ...item2}
+              : null
+          ),
+        }));
 
-  const geoJsonFeatures = ukConstituenciesGeoJson.features;
+      const mergedData = mergeFeaturesToConstituencies(
+        geoJsonFeatures,
+        addedUpConstituenciesArray
+      );
 
-  const mergeFeaturesToConstituencies = (a1, a2) =>
-    a1.map(item1 => ({
-      ...item1,
-      properties: a2.find(item2 =>
-        item1?.properties?.PCON13CD === item2.ons_code
-          ? {...item1.properties, ...item2}
-          : null
-      ),
-    }));
+      const mapGeoJsonData = {
+        type: "FeatureCollection",
+        features: mergedData,
+      };
 
-  const mergedData = mergeFeaturesToConstituencies(
-    geoJsonFeatures,
-    addedUpConstituenciesArray
-  );
+      res.status(201).json(mapGeoJsonData);
+    })
 
-  const mapGeoJsonData = {
-    type: "FeatureCollection",
-    features: mergedData,
-  };
-
-  //const data = { topic : petitionTopic }
-
-  res.status(201).json(mapGeoJsonData);
+    .catch(error => {
+      return res.status(409).json({error: error});
+    });
 };
