@@ -10,6 +10,7 @@ import {
   groupedByState,
 } from "../controllers/fetchPieChartData.js";
 import {fetchPetitions} from "../controllers/fetchPetitions.js";
+import {updtatePage, updatePetitons} from "../controllers/updatePetitions.js";
 
 router.get("/get/map/geojson/:topic", fetchMapData);
 
@@ -22,5 +23,9 @@ router.post("/fetch/bar-graph/data", fetchBarGraphData);
 router.get("/fetch/line-chart/data", fetchLineChartData);
 
 router.post("/fetch/petitions", fetchPetitions);
+
+router.post("/update/petitions", updatePetitons);
+
+router.post("/update/page", updtatePage);
 
 export default router;
