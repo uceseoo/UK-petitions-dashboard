@@ -1,4 +1,4 @@
-# UK Petittions Dashboard
+# UK Petitions Dashboard
 
 ## 🚪 Introduction
 
@@ -56,7 +56,7 @@ This is a dashboard that displays the UK Petition data on a Map, Bar-Graph, Line
 
 ### Clone and Install
 
-    git clone https://github.com/uceseoo/UK-petitions-dashboard-1.git
+    git clone https://github.com/uceseoo/UK-petitions-dashboard.git
 
 ### Open two terminals, one for the client, other for the server
 
@@ -70,7 +70,7 @@ This is a dashboard that displays the UK Petition data on a Map, Bar-Graph, Line
     cd server #from main directory
     npm install #to install install dependencies
 
-when installation is completed, you'd create an `.env` file, and check the `.env.example` file to see the variables that needs to be in your newly created `.env` file.
+when installation is completed, you'd create an `.env` file, and check the `.env.example` file to see the variables that need to be in your newly created `.env` file.
 
 ## Launch App
 
@@ -81,7 +81,7 @@ First launch the server side, so;
 
 server should be running on http://localhost:5000/
 
-Then, lauch the client side
+Then, launch the client side
 
     cd client #from main directory
     npm start
@@ -92,9 +92,7 @@ Go to http://localhost:3000/ to see the app live
 
 ## 💡 Reflection
 
-------- Just talk about why you built the app and things you probably learnt
-
-A personal and academic project to enhance my knowledge on building a full-stack GIS application from scratch using React.JS and Node.JS. The interactive Web App dashboard displays UK Petitions live data, key indicator or metric being the distribution of interest in various petition themes across the UK.
+A personal and academic project to enhance my knowledge on building a full-stack GIS application from scratch using React.JS and Node.JS. The interactive Web App dashboard displays UK Petitions live data, the key indicator or metric being the distribution of interest in various petition petition themes/topics across the UK.
 
 ---
 
