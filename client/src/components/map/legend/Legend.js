@@ -36,7 +36,7 @@ const Legend = () => {
 
   return (
     <div className="map-legend-container">
-      <h1>Importance</h1>
+      <h1>Interest</h1>
       <div className="legend-grades-container">
         {grades.map((grade, index) => {
           return (

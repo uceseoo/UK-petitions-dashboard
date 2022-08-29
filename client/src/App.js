@@ -11,8 +11,6 @@ import {
   HeaderComponent,
 } from "./components";
 
-//import GetDataComponent from "./components/GetData";
-
 function App() {
   const [rangeValue, setRangeValue] = useState([2020, 2022]);
   const [petitionTopic, setPetitionTopic] = useState("Home Office");
@@ -44,8 +42,6 @@ function App() {
         </div>
 
         <PieChartComponent topic={petitionTopic} state={petitionState} />
-
-        {/* <GetDataComponent /> */}
       </div>
     </div>
   );

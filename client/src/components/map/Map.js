@@ -13,7 +13,9 @@ const MapComponent = ({petitionTopic}) => {
     <div className="map-component-container">
       <div className="map-component-inner-container">
         <div className="map-component-header-container">
-          <h1>Displaying data for {petitionTopic}</h1>
+          <h1>
+            Displaying Distribution of Interest in {petitionTopic} Petitions
+          </h1>
         </div>
         <div className="map-component-content-container">
           {fetchingPetition && (

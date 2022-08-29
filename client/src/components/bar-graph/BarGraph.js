@@ -65,7 +65,7 @@ const BarGraphComponent = ({range, topic}) => {
       }
     }
 
-    console.log(graphRange);
+    // console.log(graphRange);
 
     const rangeString = graphRange.map(num => {
       return String(num);
@@ -78,7 +78,7 @@ const BarGraphComponent = ({range, topic}) => {
       })
       .then(res => {
         const data = res.data;
-        //console.log(data);
+        console.log(data);
         setLabels(data.labels);
         setGraphData(data.graphData);
         setFetching(false);

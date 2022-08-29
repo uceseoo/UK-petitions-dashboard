@@ -28,6 +28,14 @@ body {
     border: none;
   }
 
+  .app-is-loading-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .application-container {
     background-color: #161d33;
     width: 100%;
@@ -74,23 +82,112 @@ $app-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
   0px 1px 2px rgba(0, 0, 0, 0.24);
 
 @media (max-width: 1450px) {
-  .application-container {
-    .application-inner-container {
-      width: 100%;
-      padding: 0 20px;
-
-      .map-chart-grouped-container {
+  body {
+    .application-container {
+      .application-inner-container {
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        padding: 0 20px;
 
-        .application-grouped-chart {
-          height: 800px;
-          width: 49.5%;
+        .map-chart-grouped-container {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .application-grouped-chart {
+            height: 800px;
+            width: 49.5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1050px) {
+  body {
+    .application-container {
+      .application-inner-container {
+        width: 100%;
+        padding: 0 20px;
+
+        .map-chart-grouped-container {
+          width: 100%;
           display: flex;
           flex-direction: column;
+          align-items: center;
           justify-content: space-between;
+
+          .application-grouped-chart {
+            //height: 800px;
+            //width: 49.5%;
+            height: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    .application-container {
+      .application-inner-container {
+        width: 100%;
+        padding: 0 20px;
+
+        .map-chart-grouped-container {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+          .application-grouped-chart {
+            //height: 800px;
+            //width: 49.5%;
+            height: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    .application-container {
+      .application-inner-container {
+        width: 100%;
+        padding: 0 20px;
+
+        .map-chart-grouped-container {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+          .application-grouped-chart {
+            //height: 800px;
+            //width: 49.5%;
+            height: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
         }
       }
     }

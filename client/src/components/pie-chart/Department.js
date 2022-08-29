@@ -6,7 +6,7 @@ import axios from "axios";
 import {petitionApi} from "../../api";
 
 const departmentOptions = {
-  title: "Petitons Grouped by Departments",
+  title: "Petitions Grouped by Themes",
   pieHole: 0.4,
   is3D: false,
   backgroundColor: "#1b2444",
@@ -138,10 +138,10 @@ const PieChartDepartment = ({state}) => {
       departmentGrouped &&
         departmentGrouped["Attorney General's Office"]?.length,
     ],
-    [
-      "Unknown Topic",
-      departmentGrouped && departmentGrouped["Unknown Topic"]?.length,
-    ],
+    // [
+    //   "Unknown Topic",
+    //   departmentGrouped && departmentGrouped["Unknown Topic"]?.length,
+    // ],
   ];
 
   return (

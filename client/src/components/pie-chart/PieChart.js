@@ -28,25 +28,6 @@ const stateOptions = {
   chartArea: {left: 20, top: 50, width: "90%", height: "85%"},
 };
 
-const departmentOptions = {
-  title: "Petitons Grouped by Departments",
-  pieHole: 0.4,
-  is3D: false,
-  backgroundColor: "#1b2444",
-  legend: {
-    textStyle: {color: "#768db7"},
-  },
-  titleTextStyle: {
-    color: "#768db7",
-    fontSize: 16,
-  },
-  showColorCode: true,
-  pieSliceTextStyle: {
-    color: "black",
-  },
-  chartArea: {left: 20, top: 50, width: "90%", height: "85%"},
-};
-
 const PieChartComponent = ({topic, state}) => {
   const [query, setQuery] = useState(topic);
   const [queryValue, setQueryValue] = useState("topic");

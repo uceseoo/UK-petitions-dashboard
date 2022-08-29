@@ -26,6 +26,7 @@ ChartJS.register(
 const LineChartComponent = () => {
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState([]);
+  const [debatedPetitions, setDebatedPetitions] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
 
   const colours = [
@@ -66,7 +67,8 @@ const LineChartComponent = () => {
         const data = res.data;
         setLabels(data.labels);
         setData(data.chartData);
-        //console.log(data.chartData);
+        setDebatedPetitions(data.debatedPetitons);
+        console.log("raw-data", data);
         setLoadingData(false);
       })
       .catch(error => {
@@ -79,7 +81,10 @@ const LineChartComponent = () => {
   const chartData = data.map(obj => {
     const lineData = Object.entries(obj).map(([key, value]) => {
       return Object.entries(value).map(([key, value]) => {
-        return value.length;
+        const allPetitions = debatedPetitions.find(
+          petiton => petiton.year === key
+        );
+        return value.length / allPetitions.number_of_petitions;
       });
     });
 
@@ -96,33 +101,10 @@ const LineChartComponent = () => {
     return data;
   });
 
-  // console.log(chartData[0]);
-
   const lineChartData = {
     labels: labels,
     datasets: chartData,
   };
-
-  // const datas = {
-  //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-  //   datasets: [
-  //     {
-  //       label: "First dataset",
-  //       data: [33, 53, 85, 41, 44, 65],
-  //       fill: true,
-  //       backgroundColor: "rgba(75,192,192,0.2)",
-  //       borderColor: "rgba(75,192,192,1)",
-  //     },
-  //     {
-  //       label: "Second dataset",
-  //       data: [33, 25, 35, 51, 54, 76],
-  //       fill: false,
-  //       borderColor: "#742774",
-  //     },
-  //   ],
-  // };
-
-  //console.log(lineChartData);
 
   return (
     <div className="line-chart-component-container">
