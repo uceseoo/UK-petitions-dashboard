@@ -41,9 +41,11 @@ export const fetchBarGraphData = (req, res) => {
             return groupPetitionsByYear[`${label}`]?.length;
           }),
         };
-        res.status(201).json(data);
+        return res.status(201).json(data);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        return res.status(409).json({error: error});
+      });
   }
   //IF QUERY ISN'T INCLUDED.........
   else {
@@ -82,8 +84,10 @@ export const fetchBarGraphData = (req, res) => {
             return groupPetitionsByYear[`${label}`]?.length;
           }),
         };
-        res.status(201).json(data);
+        return res.status(201).json(data);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        return res.status(409).json({error: error});
+      });
   }
 };

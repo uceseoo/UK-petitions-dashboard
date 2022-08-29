@@ -31,6 +31,13 @@ export const fetchLineChartData = (req, res) => {
         {}
       );
 
+      const AllDebatedPetitionsGroupedByYear =
+        filteredPetitionsByYearRange.reduce((r, a) => {
+          r[a.closed_at] = r[a.closed_at] || [];
+          r[a.closed_at].push(a);
+          return r;
+        }, Object.create(null));
+
       const labels = ["2020", "2021", "2022"];
 
       const groupedPetitionDepartmentByYear = Object.entries(
@@ -45,12 +52,23 @@ export const fetchLineChartData = (req, res) => {
         return {[key]: newValues};
       });
 
+      const numberOfDebatedPetitionsYearly = labels.map(label => {
+        return {
+          year: label,
+          number_of_petitions:
+            AllDebatedPetitionsGroupedByYear[`${label}`]?.length,
+        };
+      });
+
       const data = {
         labels: labels,
         chartData: groupedPetitionDepartmentByYear,
+        debatedPetitons: numberOfDebatedPetitionsYearly,
       };
 
-      res.status(201).json(data);
+      return res.status(201).json(data);
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      return res.status(409).json({error: error});
+    });
 };

@@ -13,10 +13,10 @@ export const groupedByState = (req, res) => {
         }, Object.create(null));
 
         const data = groupPetitionByState;
-        res.status(201).json(data);
+        return res.status(201).json(data);
       })
       .catch(error => {
-        console.log(error);
+        return res.status(409).json({error: error});
       });
   } else {
     Petition.aggregate([
@@ -31,10 +31,10 @@ export const groupedByState = (req, res) => {
         }, Object.create(null));
 
         const data = groupPetitionByState;
-        res.status(201).json(data);
+        return res.status(201).json(data);
       })
       .catch(error => {
-        console.log(error);
+        return res.status(409).json({error: error});
       });
   }
 };
@@ -51,10 +51,10 @@ export const groupedByDepartment = (req, res) => {
         }, Object.create(null));
 
         const data = groupPetitionByDepartMent;
-        res.status(201).json(data);
+        return res.status(201).json(data);
       })
       .catch(error => {
-        console.log(error);
+        return res.status(409).json({error: error});
       });
   } else {
     Petition.aggregate([
@@ -69,10 +69,10 @@ export const groupedByDepartment = (req, res) => {
         }, Object.create(null));
 
         const data = groupPetitionByDepartMent;
-        res.status(201).json(data);
+        return res.status(201).json(data);
       })
       .catch(error => {
-        console.log(error);
+        return res.status(409).json({error: error});
       });
   }
 };

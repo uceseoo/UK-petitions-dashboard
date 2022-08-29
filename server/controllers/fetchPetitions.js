@@ -8,10 +8,9 @@ export const fetchPetitions = (req, res) => {
     {$match: {state: query}},
   ])
     .then(petitions => {
-      res.status(200).json(petitions);
+      return res.status(200).json(petitions);
     })
     .catch(error => {
-      res.status(404).json({error: error});
-      console.log(error);
+      return res.status(404).json({error: error});
     });
 };

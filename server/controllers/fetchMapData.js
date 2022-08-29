@@ -64,7 +64,7 @@ export const fetchMapData = (req, res) => {
         features: mergedData,
       };
 
-      res.status(201).json(mapGeoJsonData);
+      return res.status(201).json(mapGeoJsonData);
     })
 
     .catch(error => {
