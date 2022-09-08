@@ -1,0 +1,32 @@
+.update-application-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $card-background-color;
+  height: 60px;
+  box-shadow: $app-box-shadow;
+  border-radius: 7px;
+  padding: 25px;
+  margin-top: 25px;
+
+  .update-info-container {
+    color: $text-color;
+  }
+
+  .update-button-container {
+    button {
+      background-color: $app-background-color;
+      color: #ffffff;
+      text-transform: capitalize;
+
+      svg {
+        margin-right: 10px;
+      }
+    }
+
+    button:hover {
+      background-color: #1b233d;
+    }
+  }
+}
