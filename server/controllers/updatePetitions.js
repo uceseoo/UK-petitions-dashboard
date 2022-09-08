@@ -8,9 +8,13 @@ var bulk = [];
 let my_page;
 
 export const updatePetitons = (req, res) => {
-  Page.find()
+  // const first_file = req.body.first_file
+  Page.findById({_id: "630a639a5b8f1e29294223a9"})
     .then(page => {
-      const firstfile = page[0].last_page;
+      const page_number = page.last_page_number;
+      const firstfile = `https://petition.parliament.uk/petitions.json?page=${
+        page_number + 1
+      }&state=all`;
 
       var handleError = function (err) {
         if (!err) return false;
@@ -122,9 +126,18 @@ export const updatePetitons = (req, res) => {
 };
 
 export const updtatePage = page => {
+  const params = new URLSearchParams(page);
+
+  const lastPage = params.get(
+    "https://petition.parliament.uk/petitions.json?page"
+  );
   Page.findByIdAndUpdate(
     {_id: "630a639a5b8f1e29294223a9"},
-    {last_page: page, updated_at: moment.now()},
+    {
+      last_page: page,
+      updated_at: moment.now(),
+      last_page_number: parseInt(lastPage),
+    },
     {new: true}
   )
     .then(response => {
