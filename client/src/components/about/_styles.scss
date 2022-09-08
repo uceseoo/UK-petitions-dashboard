@@ -1,0 +1,52 @@
+.MuiDialog-container {
+  .about-component-contents-container {
+    width: 400px;
+    height: 380px;
+    background-color: $card-background-color;
+    display: flex;
+    padding: 20px 15px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: $text-color;
+    z-index: 999999;
+
+    h1 {
+      font-weight: 500;
+      font-size: 24px;
+    }
+
+    div {
+      width: 100%;
+
+      p {
+        font-size: 14.5px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+
+        a {
+          text-decoration: underline;
+          color: $green-background-color;
+        }
+      }
+    }
+
+    button {
+      background-color: $app-background-color;
+      color: #ffffff;
+    }
+
+    button:hover {
+      background-color: #0d0707;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .MuiDialog-container {
+    .about-component-contents-container {
+      width: 90vw;
+      height: 80vh;
+    }
+  }
+}
