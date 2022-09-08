@@ -11,6 +11,8 @@ import {
 } from "../controllers/fetchPieChartData.js";
 import {fetchPetitions} from "../controllers/fetchPetitions.js";
 import {updtatePage, updatePetitons} from "../controllers/updatePetitions.js";
+import {getPetitionCount} from "../controllers/getPetitionCount.js";
+import {getLastUpdatedPage} from "../controllers/getLastUpdatedPage.js";
 
 router.get("/get/map/geojson/:topic", fetchMapData);
 
@@ -27,5 +29,9 @@ router.post("/fetch/petitions", fetchPetitions);
 router.post("/update/petitions", updatePetitons);
 
 router.post("/update/page", updtatePage);
+
+router.get("/get/petition/count/:state", getPetitionCount);
+
+router.get("/get/last/updated/page", getLastUpdatedPage);
 
 export default router;
