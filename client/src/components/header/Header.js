@@ -9,34 +9,34 @@ import {petitionApi} from "../../api";
 
 const HeaderComponent = () => {
   const [openPetitions, setOpenPetitions] = useState({
-    petitions: [],
+    count: 0,
     fetching: false,
   });
   const [closedPetitions, setClosedPetitions] = useState({
-    petitions: [],
+    count: 0,
     fetching: false,
   });
   const [rejectedPetitions, setRejectedPetitons] = useState({
-    petitions: [],
+    count: 0,
     fetching: false,
   });
 
   const fetchOpenedPetitions = useCallback(() => {
     setOpenPetitions({
-      petitions: [],
+      count: 0,
       fetching: true,
     });
     axios
-      .post(`${petitionApi}/fetch/petitions`, {query: "open"})
+      .get(`${petitionApi}/get/petition/count/open`)
       .then(res => {
         setOpenPetitions({
-          petitions: res.data,
+          count: res.data.count,
           fetching: false,
         });
       })
       .catch(error => {
         setOpenPetitions({
-          petitions: [],
+          count: 0,
           fetching: false,
         });
       });
@@ -44,20 +44,20 @@ const HeaderComponent = () => {
 
   const fetchClosedPetitions = useCallback(() => {
     setClosedPetitions({
-      petitions: [],
+      count: 0,
       fetching: true,
     });
     axios
-      .post(`${petitionApi}/fetch/petitions`, {query: "closed"})
+      .get(`${petitionApi}/get/petition/count/closed`)
       .then(res => {
         setClosedPetitions({
-          petitions: res.data,
+          count: res.data.count,
           fetching: false,
         });
       })
       .catch(error => {
         setClosedPetitions({
-          petitions: [],
+          count: 0,
           fetching: false,
         });
       });
@@ -65,20 +65,20 @@ const HeaderComponent = () => {
 
   const fetchRejectedPetitions = useCallback(() => {
     setRejectedPetitons({
-      petitions: [],
+      count: 0,
       fetching: true,
     });
     axios
-      .post(`${petitionApi}/fetch/petitions`, {query: "rejected"})
+      .get(`${petitionApi}/get/petition/count/rejected`)
       .then(res => {
         setRejectedPetitons({
-          petitions: res.data,
+          count: res.data.count,
           fetching: false,
         });
       })
       .catch(error => {
         setRejectedPetitons({
-          petitions: [],
+          count: 0,
           fetching: false,
         });
       });
@@ -101,7 +101,7 @@ const HeaderComponent = () => {
               </div>
             )}
             <div className="data-information">
-              <span>{openPetitions.petitions.length}</span>
+              <span>{openPetitions.count}</span>
               <p>Open Petitions</p>
             </div>
             <div className="data-icon">
@@ -116,7 +116,7 @@ const HeaderComponent = () => {
               </div>
             )}
             <div className="data-information">
-              <span>{closedPetitions.petitions.length}</span>
+              <span>{closedPetitions.count}</span>
               <p>Closed Petitions</p>
             </div>
             <div className="data-icon">
@@ -131,7 +131,7 @@ const HeaderComponent = () => {
               </div>
             )}
             <div className="data-information">
-              <span>{rejectedPetitions.petitions.length}</span>
+              <span>{rejectedPetitions.count}</span>
               <p>Rejected Petitions</p>
             </div>
             <div className="data-icon">

@@ -78,7 +78,7 @@ const BarGraphComponent = ({range, topic}) => {
       })
       .then(res => {
         const data = res.data;
-        console.log(data);
+        // console.log(data);
         setLabels(data.labels);
         setGraphData(data.graphData);
         setFetching(false);

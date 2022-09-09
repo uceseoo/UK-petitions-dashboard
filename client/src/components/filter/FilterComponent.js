@@ -33,7 +33,7 @@ const topics = [
 ];
 
 const filteredTopics = topics.map(topic => {
-  return topic.replace("Department for ", "").replace("Department of", "");
+  return topic.replace("Department for ", "").replace("Department of ", "");
 });
 
 //N:B : MAKE MARKS DYNAMIC BASED ON NUMBER OF YEARS PRESENT IN PETITION DATA

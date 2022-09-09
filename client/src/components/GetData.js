@@ -1,15 +1,23 @@
 import axios from "axios";
 
+import Papa from "papaparse";
+
+//import csvToJson from "convert-csv-to-json";
+
+const path = "http://localhost:5000/petition/get/data";
+
 const GetDataComponent = () => {
   const getData = () => {
     //console.log("fetching data");
 
     axios
-      .get("http://localhost:5000/petition/add")
+      .get(path)
       .then(res => {
         const result = res.data;
-        //console.log("data fetched successfully");
-        console.log(result);
+
+        const newResult = Papa.parse(result);
+
+        console.log(newResult);
       })
       .catch(error => {
         console.log("error whilst fetching data");
