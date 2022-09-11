@@ -36,11 +36,6 @@ const AboutComponent = ({showAbout, setShowAbout}) => {
             petition themes. The line chart, bar chart and donut charts explore
             the petitions further showing the proportions of the different
             themes and how they vary over time.
-            
-            Contains Ordnance Survey and Office of National Statistics data © Crown 
-            copyright and database right. Ordnance Survey data covered by OS 
-            OpenData Licence. Information on the petitions site is licensed under 
-            the terms of the Open Government Licence.
           </p>
 
           <p>
