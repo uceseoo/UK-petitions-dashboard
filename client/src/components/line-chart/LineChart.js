@@ -108,6 +108,9 @@ const LineChartComponent = () => {
 
   return (
     <div className="line-chart-component-container">
+      <div className="line-chart-header-container">
+        <h1>Topical Trends since 2020</h1>
+      </div>
       {loadingData && (
         <div className="line-chart-loading-container">
           <CircularProgress />

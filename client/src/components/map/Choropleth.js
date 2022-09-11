@@ -66,7 +66,7 @@ const Choropleth = ({petitionTopic, setLoading}) => {
   useEffect(() => {
     if (data === null) return;
 
-    map.scrollWheelZoom.disable();
+    //map.scrollWheelZoom.disable();
 
     map.createPane("labels");
 
@@ -107,6 +107,32 @@ const Choropleth = ({petitionTopic, setLoading}) => {
                 : "Unknown"
             }</p>`
         );
+
+        layer.on("mouseover", function () {
+          layer
+            .bindPopup(
+              `<p>Name : ${
+                feature.properties ? feature.properties.name : "Unknown"
+              } </p>` +
+                `<p>ONS Code : ${
+                  feature.properties ? feature.properties.ons_code : "Unknown"
+                } </p>` +
+                `<p>MP : ${
+                  feature.properties ? feature.properties.mp : "Unknown"
+                }</p>` +
+                `<p>Importance : ${
+                  feature.properties?.total_importance
+                    ? feature.properties.total_importance
+                    : "Unknown"
+                }</p>` +
+                `<p>Signatures : ${
+                  feature.properties
+                    ? feature.properties.total_signature_count
+                    : "Unknown"
+                }</p>`
+            )
+            .openPopup();
+        });
       },
     }).addTo(map);
   }, [data, map, style]);

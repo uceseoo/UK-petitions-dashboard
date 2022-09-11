@@ -13,6 +13,7 @@ import {
   HeaderComponent,
   AboutComponent,
   UpdateAppComponent,
+  FooterComponent,
 } from "./components";
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
         <PieChartComponent topic={petitionTopic} state={petitionState} />
 
         <UpdateAppComponent setUpdatingApp={setUpdatingApp} />
+
+        <FooterComponent />
       </div>
 
       <AboutComponent showAbout={showAbout} setShowAbout={setShowAbout} />

@@ -7,3 +7,4 @@ export {default as PieChartComponent} from "./pie-chart/PieChart";
 export {default as HeaderComponent} from "./header/Header";
 export {default as AboutComponent} from "./about/About";
 export {default as UpdateAppComponent} from "./update/Update";
+export {default as FooterComponent} from "./footer/Footer";
