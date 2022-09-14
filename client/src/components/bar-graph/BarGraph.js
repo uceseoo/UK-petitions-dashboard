@@ -74,7 +74,7 @@ const BarGraphComponent = ({range, topic}) => {
     axios
       .post(`${petitionApi}/fetch/bar-graph/data`, {
         range: rangeString,
-        query: topic,
+        query: query,
       })
       .then(res => {
         const data = res.data;
@@ -87,7 +87,7 @@ const BarGraphComponent = ({range, topic}) => {
         console.log(error);
         setFetching(false);
       });
-  }, [range, topic]);
+  }, [range, query]);
 
   const data = {
     labels: labels,

@@ -24,14 +24,35 @@ const departmentOptions = {
   chartArea: {left: 20, top: 50, width: "90%", height: "85%"},
 };
 
-const PieChartDepartment = ({state}) => {
+const PieChartDepartment = ({state, range}) => {
   const [departmentGrouped, setDepartmentGrouped] = useState(null);
   const [fetchingDepartment, setFetchingDepartment] = useState(false);
 
   const getDepartmentGroupedData = useCallback(() => {
     setFetchingDepartment(true);
+    let graphRange = range;
+
+    let i = graphRange[graphRange.length - 1];
+
+    //console.log(rangeString);
+
+    while (i-- > graphRange[0]) {
+      if (!graphRange.includes(i)) {
+        const index = graphRange.indexOf(i + 1);
+        graphRange.splice(index, 0, i);
+      }
+    }
+
+    // console.log(graphRange);
+
+    const rangeString = graphRange.map(num => {
+      return String(num);
+    });
     axios
-      .post(`${petitionApi}/fetch/pie-chart/data/department`, {query: state})
+      .post(`${petitionApi}/fetch/pie-chart/data/department`, {
+        query: state,
+        range: rangeString,
+      })
       .then(res => {
         // console.log(res.data);
         setDepartmentGrouped(res.data);
@@ -42,7 +63,7 @@ const PieChartDepartment = ({state}) => {
         setFetchingDepartment(false);
         alert("Error loading Petiton Grouped By Department Pie-Charts Data");
       });
-  }, [state]);
+  }, [state, range]);
 
   useEffect(() => {
     getDepartmentGroupedData();

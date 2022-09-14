@@ -26,7 +26,7 @@ ChartJS.register(
 const LineChartComponent = () => {
   const [labels, setLabels] = useState([]);
   const [data, setData] = useState([]);
-  const [debatedPetitions, setDebatedPetitions] = useState([]);
+  const [petitions, setPetitions] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
 
   const colours = [
@@ -67,7 +67,7 @@ const LineChartComponent = () => {
         const data = res.data;
         setLabels(data.labels);
         setData(data.chartData);
-        setDebatedPetitions(data.debatedPetitons);
+        setPetitions(data.petitions);
         console.log("raw-data", data);
         setLoadingData(false);
       })
@@ -81,9 +81,7 @@ const LineChartComponent = () => {
   const chartData = data.map(obj => {
     const lineData = Object.entries(obj).map(([key, value]) => {
       return Object.entries(value).map(([key, value]) => {
-        const allPetitions = debatedPetitions.find(
-          petiton => petiton.year === key
-        );
+        const allPetitions = petitions.find(petiton => petiton.year === key);
         return value.length / allPetitions.number_of_petitions;
       });
     });

@@ -28,7 +28,7 @@ const stateOptions = {
   chartArea: {left: 20, top: 50, width: "90%", height: "85%"},
 };
 
-const PieChartComponent = ({topic, state}) => {
+const PieChartComponent = ({topic, state, range}) => {
   const [query, setQuery] = useState(topic);
   const [queryValue, setQueryValue] = useState("topic");
   const [stateGrouped, setStateGrouped] = useState(null);
@@ -38,7 +38,7 @@ const PieChartComponent = ({topic, state}) => {
     setFetchingState(true);
     axios
       .post(`${petitionApi}/fetch/pie-chart/data/state`, {
-        query: topic,
+        query: query,
       })
       .then(res => {
         setStateGrouped(res.data);
@@ -49,7 +49,7 @@ const PieChartComponent = ({topic, state}) => {
         setFetchingState(false);
         alert("Error loading Petiton Grouped By State Pie-Charts Data");
       });
-  }, [topic]);
+  }, [query]);
 
   useEffect(() => {
     getStateGroupedData();
@@ -113,7 +113,7 @@ const PieChartComponent = ({topic, state}) => {
           />
         </div>
       </div>
-      <PieChartDepartment state={state} />
+      <PieChartDepartment state={state} range={range} />
     </div>
   );
 };

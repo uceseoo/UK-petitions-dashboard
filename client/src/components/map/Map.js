@@ -7,7 +7,7 @@ import Legend from "./legend/Legend";
 
 const position = [55.3781, -5.436];
 
-const MapComponent = ({petitionTopic}) => {
+const MapComponent = ({petitionTopic, range}) => {
   const [fetchingPetition, setFetchingPetition] = useState(false);
   return (
     <div className="map-component-container">
@@ -36,6 +36,7 @@ const MapComponent = ({petitionTopic}) => {
             <Choropleth
               petitionTopic={petitionTopic}
               setLoading={setFetchingPetition}
+              range={range}
             />
           </MapContainer>
         </div>

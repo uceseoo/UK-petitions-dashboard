@@ -6,14 +6,36 @@ import axios from "axios";
 
 import {petitionApi} from "../../api";
 
-const Choropleth = ({petitionTopic, setLoading}) => {
+const Choropleth = ({petitionTopic, setLoading, range}) => {
   const [data, setData] = useState(null);
   const map = useMap();
 
   const getGeoJsonData = useCallback(() => {
     setLoading(true);
+
+    let mapRange = range;
+
+    let i = mapRange[mapRange.length - 1];
+
+    //console.log(rangeString);
+
+    while (i-- > mapRange[0]) {
+      if (!mapRange.includes(i)) {
+        const index = mapRange.indexOf(i + 1);
+        mapRange.splice(index, 0, i);
+      }
+    }
+
+    // console.log(graphRange);
+
+    const rangeString = mapRange.map(num => {
+      return String(num);
+    });
+
     axios
-      .get(`${petitionApi}/get/map/geojson/${petitionTopic}`)
+      .post(`${petitionApi}/get/map/geojson/${petitionTopic}`, {
+        range: rangeString,
+      })
       .then(res => {
         const data = res.data;
         setData(data);
@@ -25,7 +47,7 @@ const Choropleth = ({petitionTopic, setLoading}) => {
         setLoading(false);
       });
     //console.log("map disabled");
-  }, [petitionTopic, setLoading]);
+  }, [petitionTopic, setLoading, range]);
 
   useEffect(() => {
     getGeoJsonData();

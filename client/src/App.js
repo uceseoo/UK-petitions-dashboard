@@ -47,7 +47,7 @@ function App() {
         <HeaderComponent />
 
         <div className="map-chart-grouped-container">
-          <MapComponent petitionTopic={petitionTopic} />
+          <MapComponent petitionTopic={petitionTopic} range={rangeValue} />
 
           <div className="application-grouped-chart">
             <BarGraphComponent range={rangeValue} topic={petitionTopic} />
@@ -55,7 +55,11 @@ function App() {
           </div>
         </div>
 
-        <PieChartComponent topic={petitionTopic} state={petitionState} />
+        <PieChartComponent
+          topic={petitionTopic}
+          state={petitionState}
+          range={rangeValue}
+        />
 
         <UpdateAppComponent setUpdatingApp={setUpdatingApp} />
 
