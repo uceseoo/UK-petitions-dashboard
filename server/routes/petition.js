@@ -14,7 +14,7 @@ import {updtatePage, updatePetitons} from "../controllers/updatePetitions.js";
 import {getPetitionCount} from "../controllers/getPetitionCount.js";
 import {getLastUpdatedPage} from "../controllers/getLastUpdatedPage.js";
 
-router.get("/get/map/geojson/:topic", fetchMapData);
+router.post("/get/map/geojson/:topic", fetchMapData);
 
 router.post("/fetch/pie-chart/data/state", groupedByState);
 

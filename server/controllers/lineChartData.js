@@ -8,18 +8,18 @@ export const fetchLineChartData = (req, res) => {
       const editPetitionsYear = petitions.map(petition => {
         return {
           ...petition,
-          closed_at: moment(petition.closed_at).format("YYYY"),
+          created_at: moment(petition.closed_at).format("YYYY"),
         };
       });
 
       const years_range = ["2020", "2021", "2022"];
 
-      const debatedPetitions = editPetitionsYear.filter(
-        petition => petition.state === "closed"
-      );
+      // const debatedPetitions = editPetitionsYear.filter(
+      //   petition => petition.state === "closed"
+      // );
 
-      const filteredPetitionsByYearRange = debatedPetitions.filter(petition =>
-        years_range.includes(petition.closed_at)
+      const filteredPetitionsByYearRange = editPetitionsYear.filter(petition =>
+        years_range.includes(petition.created_at)
       );
 
       const groupPetitionsByDepartment = filteredPetitionsByYearRange.reduce(
@@ -33,8 +33,8 @@ export const fetchLineChartData = (req, res) => {
 
       const AllDebatedPetitionsGroupedByYear =
         filteredPetitionsByYearRange.reduce((r, a) => {
-          r[a.closed_at] = r[a.closed_at] || [];
-          r[a.closed_at].push(a);
+          r[a.created_at] = r[a.created_at] || [];
+          r[a.created_at].push(a);
           return r;
         }, Object.create(null));
 
@@ -44,8 +44,8 @@ export const fetchLineChartData = (req, res) => {
         groupPetitionsByDepartment
       ).map(([key, value]) => {
         const newValues = value.reduce((r, a) => {
-          r[a.closed_at] = r[a.closed_at] || [];
-          r[a.closed_at].push(a);
+          r[a.created_at] = r[a.created_at] || [];
+          r[a.created_at].push(a);
           return r;
         }, Object.create(null));
 
@@ -63,7 +63,7 @@ export const fetchLineChartData = (req, res) => {
       const data = {
         labels: labels,
         chartData: groupedPetitionDepartmentByYear,
-        debatedPetitons: numberOfDebatedPetitionsYearly,
+        petitions: numberOfDebatedPetitionsYearly,
       };
 
       return res.status(201).json(data);

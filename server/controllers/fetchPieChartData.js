@@ -1,4 +1,5 @@
 import Petition from "../models/petition.js";
+import moment from "moment";
 
 export const groupedByState = (req, res) => {
   const query = req.body.query;
@@ -41,10 +42,21 @@ export const groupedByState = (req, res) => {
 
 export const groupedByDepartment = (req, res) => {
   const {query} = req.body;
+  const {range} = req.body;
   if (query === "all") {
     Petition.aggregate([{$unset: "signatures_by_constituency"}])
       .then(petitions => {
-        const groupPetitionByDepartMent = petitions.reduce((r, a) => {
+        const editPetitionsYear = petitions.map(petition => {
+          return {
+            ...petition,
+            created_at: moment(petition.closed_at).format("YYYY"),
+          };
+        });
+
+        const selectedPetitions = editPetitionsYear.filter(petition =>
+          range.includes(petition.created_at)
+        );
+        const groupPetitionByDepartMent = selectedPetitions.reduce((r, a) => {
           r[a.topic] = r[a.topic] || [];
           r[a.topic].push(a);
           return r;
@@ -62,7 +74,17 @@ export const groupedByDepartment = (req, res) => {
       {$match: {state: query}},
     ])
       .then(petitions => {
-        const groupPetitionByDepartMent = petitions.reduce((r, a) => {
+        const editPetitionsYear = petitions.map(petition => {
+          return {
+            ...petition,
+            created_at: moment(petition.closed_at).format("YYYY"),
+          };
+        });
+
+        const selectedPetitions = editPetitionsYear.filter(petition =>
+          years_range.includes(petition.created_at)
+        );
+        const groupPetitionByDepartMent = selectedPetitions.reduce((r, a) => {
           r[a.topic] = r[a.topic] || [];
           r[a.topic].push(a);
           return r;

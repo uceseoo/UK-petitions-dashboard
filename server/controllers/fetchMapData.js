@@ -1,5 +1,6 @@
 import {readFile} from "fs/promises";
 import Petition from "../models/petition.js";
+import moment from "moment";
 
 const ukConstituenciesGeoJson = JSON.parse(
   await readFile(new URL("../constituencies_geojson.json", import.meta.url))
@@ -8,13 +9,25 @@ const ukConstituenciesGeoJson = JSON.parse(
 //FUNCTION TO RETURN DATA BASED ON TOPIC/DEPARTMENT SELECTED
 export const fetchMapData = (req, res) => {
   const petitionTopic = req.params.topic;
+  const years_range = req.body.range;
 
   if (!petitionTopic)
     return res.status(404).json({message: "Please add a Topic"});
 
   Petition.find({topic: petitionTopic})
     .lean()
-    .then(selectedPetitions => {
+    .then(petitions => {
+      const editPetitionsYear = petitions.map(petition => {
+        return {
+          ...petition,
+          created_at: moment(petition.closed_at).format("YYYY"),
+        };
+      });
+
+      const selectedPetitions = editPetitionsYear.filter(petition =>
+        years_range.includes(petition.created_at)
+      );
+
       const signaturesByConstituencies = selectedPetitions.map(
         a => a.signatures_by_constituency
       );
