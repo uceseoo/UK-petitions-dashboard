@@ -4,8 +4,8 @@
 
 This is a dashboard that displays the UK Petition data on a Map, Bar-Graph, Line-Chart and Doughnut Charts.
 
-![Dashboard image one](./screenshots/dashboard_image_one.jpg "Dashboard image two")
-![Dashboard image two](./screenshots/dashboard_image_two.jpg "Dashboard image one")
+![Dashboard image one](./screenshots/dashboard_image_one.jpg "Dashboard image one")
+
 
 ---
 
