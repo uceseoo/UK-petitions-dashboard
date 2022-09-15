@@ -6,21 +6,21 @@ import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import {petitionApi} from "../../api";
 import {Button} from "@mui/material";
 
-export const UpdateAppComponent = ({setUpdatingApp}) => {
+export const UpdateAppComponent = () => {
   const [page, setPage] = useState({});
   const [update, setUpdate] = useState(false);
   const [checkingUpdate, setCheckingUpdate] = useState(false);
 
   const handleUpdatePetitons = () => {
-    setUpdatingApp(true);
+    //setUpdatingApp(true);
     axios
       .post(`${petitionApi}/update/petitions`)
       .then(() => {
-        setUpdatingApp(false);
+        // setUpdatingApp(false);
         console.log("page updated");
       })
       .catch(error => {
-        setUpdatingApp(false);
+        //setUpdatingApp(false);
         console.log(error);
         alert("Failed to update petitions");
       });

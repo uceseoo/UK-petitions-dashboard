@@ -1,5 +1,6 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import Pusher from "pusher-js";
 
 import "./styles/styles.scss";
 
@@ -16,12 +17,40 @@ import {
   FooterComponent,
 } from "./components";
 
+const pusher = new Pusher("42fdc2b71e60a9fa3e77", {
+  cluster: "eu",
+});
+
 function App() {
   const [rangeValue, setRangeValue] = useState([2020, 2022]);
   const [petitionTopic, setPetitionTopic] = useState("Home Office");
   const [petitionState, setPetitionState] = useState("all");
   const [showAbout, setShowAbout] = useState(false);
   const [updatingApp, setUpdatingApp] = useState(false);
+
+  useEffect(() => {
+    const channel = pusher.subscribe("petitions-channel");
+
+    channel.bind("updating-petitions", data => {
+      setUpdatingApp(data.updating);
+    });
+
+    return () => {
+      channel.unbind("updating-petitions");
+    };
+  }, []);
+
+  useEffect(() => {
+    const channel = pusher.subscribe("petitions-channel");
+
+    channel.bind("petitions-updated", data => {
+      setUpdatingApp(data.updating);
+    });
+
+    return () => {
+      channel.unbind("petitions-updated");
+    };
+  }, []);
 
   if (updatingApp)
     return (
@@ -61,7 +90,7 @@ function App() {
           range={rangeValue}
         />
 
-        <UpdateAppComponent setUpdatingApp={setUpdatingApp} />
+        <UpdateAppComponent />
 
         <FooterComponent />
       </div>
