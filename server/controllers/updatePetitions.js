@@ -1,4 +1,5 @@
 import getJSON from "get-json";
+import {pusher} from "../pusher/pusher.js";
 
 import Petition from "../models/petition.js";
 import Page from "../models/page.js";
@@ -8,7 +9,7 @@ var bulk = [];
 let my_page;
 
 export const updatePetitons = (req, res) => {
-  // const first_file = req.body.first_file
+  pusher.trigger("petitions-channel", "updating-petitions", {updating: true});
   Page.findById({_id: "630a639a5b8f1e29294223a9"})
     .then(page => {
       const page_number = page.last_page_number;
@@ -115,6 +116,9 @@ export const updatePetitons = (req, res) => {
 
       processList(firstfile, function (response) {
         updtatePage(my_page);
+        pusher.trigger("petitions-channel", "petitions-updated", {
+          updating: false,
+        });
         return res
           .status(200)
           .json({message: "Successfully Updated Petitions"});
