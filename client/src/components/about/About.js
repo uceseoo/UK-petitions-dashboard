@@ -39,6 +39,13 @@ const AboutComponent = ({showAbout, setShowAbout}) => {
           </p>
 
           <p>
+            Contains Ordnance Survey and Office of National Statistics data 
+            © Crown copyright and Database right [2017]. Ordnance Survey data is covered
+            by OS OpenData Licence.Petitions and ONS data is licensed under the
+            terms of the Open Government Licence. 
+          </p>
+
+          <p>
             Use the filter buttons and time slider to toggle multiple views.
           </p>
         </div>
