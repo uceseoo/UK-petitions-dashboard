@@ -1,14 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "uk parliaments data base",
+  "description": "uk parliament database",
   "main": "index.mjs",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.mjs"
   },
-  "author": "Sulaimon-Olaniran",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
